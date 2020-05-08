@@ -1,8 +1,6 @@
 # GSOC '20 - Cluster Addons: Package All Things!
 Project tracker for my GSoC project - Cluster Addons: package all things!- for the Kubernetes organization (CNCF).
 
-Progress tracker for my GSoC project for CNCF & Kubernetes - Cluster Addons: Package All Things!
-
 To easier track the progress, I've created a [public trello board](https://trello.com/b/6kuguhLw/gsoc-2020-tracker-cluster-addons) where I'll be providing regular progress updates.
 
 # Project Abstract
