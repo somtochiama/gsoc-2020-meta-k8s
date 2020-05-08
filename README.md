@@ -19,5 +19,5 @@ To easier track the progress, I've created a [public trello board](https://trell
 * Github: [SomtochiAma](https://github.com/SomtochiAma)
 * Email: somtochionyekwere@gmail.com
 * Slack nick: SomtochiAma
-* Twitter: [@AmaOnyekwere][]
+* Twitter: [@AmaOnyekwere](https://twitter.com/AmaOnyekwere)
 * Mentors: [Justin Santa Barbara](https://github.com/justinsb), [Leigh Capili](https://github.com/stealthybox)
