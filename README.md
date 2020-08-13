@@ -20,7 +20,7 @@ To easier track the progress, I've created a [public trello board](https://trell
 * Email: somtochionyekwere@gmail.com
 * Slack nick: SomtochiAma
 * Twitter: [@AmaOnyekwere](https://twitter.com/AmaOnyekwere)
-* Mentors: [Justin Santa Barbara](https://github.com/justinsb), [Leigh Capili](https://github.com/stealthybox)
+* Mentors: [Justin Santa Barbara]( ), [Leigh Capili](https://github.com/stealthybox)
 
 # Links
 
@@ -29,8 +29,8 @@ To easier track the progress, I've created a [public trello board](https://trell
 * [Proposal Draft (Google Doc)](https://docs.google.com/document/d/1bRbEps3B5KFuQRlFJEgJtyhcJ35VhGlQYifvhMd0Rlo/edit?usp=sharing)
 * [Original Feature Issue](https://github.com/kubernetes-sigs/cluster-addons/issues/39)
 * [Progress Tracker (Trello Board)](https://trello.com/b/6kuguhLw/gsoc-2020-tracker-cluster-addons)
-* [All commits to kubernetes-sigs/cluster-addons](https://github.com/kubernetes/dashboard/search?o=desc&q=author%3Aeloyekunle+author-date%3A%3C2019-09-01&s=committer-date&type=Commits)
-
+* [All commits to kubernetes-sigs/cluster-addons](https://github.com/kubernetes-sigs/cluster-addons/commits?author=SomtochiAma)
+* [All commits to kubernetes-sigs/kubebuidler-declarative-pattern](https://github.com/kubernetes-sigs/kubebuilder-declarative-pattern/commits?author=SomtochiAma)
 ## Pull Requests and Issues
 
 **Repository: cluster-addons**
