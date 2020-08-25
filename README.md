@@ -32,6 +32,7 @@ To easier track the progress, I've created a [public trello board](https://trell
 * [Progress Tracker (Trello Board)](https://trello.com/b/6kuguhLw/gsoc-2020-tracker-cluster-addons)
 * [All commits to kubernetes-sigs/cluster-addons](https://github.com/kubernetes-sigs/cluster-addons/commits?author=SomtochiAma)
 * [All commits to kubernetes-sigs/kubebuidler-declarative-pattern](https://github.com/kubernetes-sigs/kubebuilder-declarative-pattern/commits?author=SomtochiAma)
+* [Link to pull requests for blog post](https://github.com/kubernetes/website/pull/23432)
 
 
 # Work done
@@ -77,7 +78,7 @@ Giving users of these operators insight into the status of different resources i
 - [kubernetes-sigs/kubebuilder-declarative-pattern#110](https://github.com/kubernetes-sigs/kubebuilder-declarative-pattern/pull/110) - Uses kstatus to compute status of CR
 - [kubernetes-sigs/kubebuilder-declarative-pattern#110](https://github.com/kubernetes-sigs/kubebuilder-declarative-pattern/pull/120) - Aggregate status looks in the correct namespace
 
-### Applying Object without the `kubectl` command
+### Applying Objects without the `kubectl` command
 
 I also worked on function that would be used by the operator for apply kubernetes YAML to the cluster. Originally, we were executing the `kubectl apply` command. This required that the `kubectl` binary had to be included in the image of the operator else it would fail. Replacing it with a function cut down the the image size by almost half, reducing resources needed to run operators!
 
@@ -87,7 +88,7 @@ I also worked on function that would be used by the operator for apply kubernete
 
 ## Various Refactoring
 
-I was also involved in several refactoring around the two codebases, small changes that make the code more readable and cleaner
+I was also involved in several refactoring around the two codebases, small changes that make the code more readable and cleaner.
 
 **Related Pull Requests**
 - [kubernetes-sigs/kubebuilder-declarative-pattern#78](https://github.com/kubernetes-sigs/kubebuilder-declarative-pattern/pull/78) - Makes file loading more flexible
@@ -119,7 +120,8 @@ The generic controller is a general controller that can be shared between addons
 
 The process is as follows
 - Create the Generic CRD
-- Generate all the manifest needed with the `generic-addon` tool found here (here)[https://github.com/kubernetes-sigs/cluster-addons/blob/master/tools/generic-addon/README.md]
+- Generate all the manifest needed with the `generic-addon` tool found here (here)[https://github.com/kubernetes-sigs/cluster-addons/blob/master/tools/generic-addon/README.md].
+
 This tool creates
 1. The CRD for your addon
 2. The RBAC for the CRD
