@@ -71,17 +71,23 @@ One of the operators that I worked on is a generic controller that could manage 
 
 ### Refined Status Aggregation
 
+Giving users of these operators insight into the status of different resources in the cluster is very essential and should be easy and accurate. I introduced using a tool - [cli-utils/kstatus](https://github.com/kubernetes-sigs/cli-utils/blob/master/pkg/kstatus/README.md) for tracking the status of various resource. The different status are then aggregated into the `phase` field in the status of the custom resource. The older status function was also updated to look in the right namespace for the resources.
+
 **Related Pull Requests**
 - [kubernetes-sigs/kubebuilder-declarative-pattern#110](https://github.com/kubernetes-sigs/kubebuilder-declarative-pattern/pull/110) - Uses kstatus to compute status of CR
 - [kubernetes-sigs/kubebuilder-declarative-pattern#110](https://github.com/kubernetes-sigs/kubebuilder-declarative-pattern/pull/120) - Aggregate status looks in the correct namespace
 
 ### Applying Object without the `kubectl` command
 
+I also worked on function that would be used by the operator for apply kubernetes YAML to the cluster. Originally, we were executing the `kubectl apply` command. This required that the `kubectl` binary had to be included in the image of the operator else it would fail. Replacing it with a function cut down the the image size by almost half, reducing resources needed to run operators!
+
 **Related Pull Requests**
 - [kubernetes-sigs/kubebuilder-declarative-pattern#103](https://github.com/kubernetes-sigs/kubebuilder-declarative-pattern/pull/103) - Adds function for parsing list
 - [kubernetes-sigs/kubebuilder-declarative-pattern#101](https://github.com/kubernetes-sigs/kubebuilder-declarative-pattern/pull/101) - Uses new apply function so we don't need kubectl
 
 ## Various Refactoring
+
+I was also involved in several refactoring around the two codebases, small changes that make the code more readable and cleaner
 
 **Related Pull Requests**
 - [kubernetes-sigs/kubebuilder-declarative-pattern#78](https://github.com/kubernetes-sigs/kubebuilder-declarative-pattern/pull/78) - Makes file loading more flexible
@@ -155,10 +161,10 @@ Run the Generic controller, either on your machine or in-cluster
 
 - Additions to the Kube proxy operator:
 
-  [johnsonj/addon-operators#1](https://github.com/johnsonj/addon-operators/pull/1) - Makes controller run in-cluster
-  [johnsonj/addon-operators#2](https://github.com/johnsonj/addon-operators/pull/2) - Golden files test for kube .proxy
-  [johnsonj/addon-operators#3](https://github.com/johnsonj/addon-operators/pull/3) - Tidy up the operator and ensure create-cluster.sh works
-  [johnsonj/addon-operators#4](https://github.com/johnsonj/addon-operators/pull/4) - Updates go version
+  * [johnsonj/addon-operators#1](https://github.com/johnsonj/addon-operators/pull/1) - Makes controller run in-cluster
+  * [johnsonj/addon-operators#2](https://github.com/johnsonj/addon-operators/pull/2) - Golden files test for kube .proxy
+  * [johnsonj/addon-operators#3](https://github.com/johnsonj/addon-operators/pull/3) - Tidy up the operator and ensure create-cluster.sh works
+  * [johnsonj/addon-operators#4](https://github.com/johnsonj/addon-operators/pull/4) - Updates go version
   [kubernetes-sigs/cluster-addons#71](https://github.com/kubernetes-sigs/cluster-addons/pull/71) - Uses packages from declarative pattern repo
 
 
