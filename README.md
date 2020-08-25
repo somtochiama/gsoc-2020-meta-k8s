@@ -127,12 +127,12 @@ The Generic custom resource looks like this:
 apiVersion: addons.x-k8s.io/v1alpha1
 kind: Generic
 metadata:
- 			name: generic-sample
+ 	name: generic-sample
 spec:
-  			objectKind:
-    kind: NodeLocalDNS
-    version: "v1alpha1"
-    group: addons.x-k8s.io
+  objectKind:
+  kind: NodeLocalDNS
+  version: "v1alpha1"
+  group: addons.x-k8s.io
 channel: "../nodelocaldns/channels"
 ```
 
@@ -164,7 +164,7 @@ Run the Generic controller, either on your machine or in-cluster
 
 ### Documentation
 
-To crown a very fulfilling summer spent working on cluster-addons, I worked on creating and updating various documentation in both cluster addons and kubebuilder-declarative-repo so that is easy for other to understand and use the work I have done
+To crown a very fulfilling summer spent working on cluster-addons, I worked on creating and updating various documentation in both cluster addons and kubebuilder-declarative-repo so that is easy for other to understand and use the work I have done.
 
 1. [kubernetes-sigs/cluster-addons#42](https://github.com/kubernetes-sigs/cluster-addons/pull/42) - Adds docs on how to run operator locally
 2. [kubernetes-sigs/cluster-addons#56](https://github.com/kubernetes-sigs/cluster-addons/pull/56) - Readme for dashboard operator and updates stable version
