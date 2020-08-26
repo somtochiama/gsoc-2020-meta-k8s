@@ -42,7 +42,7 @@ To easier track the progress, I've created a [public trello board](https://trell
 The kubebuilder-declarative-pattern[from here on referred to as KDP] repo is an extra layer of addon specific tooling on top of the kubebuilder SDK that is enabled by passing the experimental `--pattern=addon` flag to `kubebuilder create` command. Together, they create the base code for the addon operator. During the internship, I worked on a couple of features in KDP and cluster-addons.
 
 ### Version check for the operators
-Enabling version check for operators helped in making safer upgrades/downgrades to different versions of the addon even though the operator had complex logic. It is a way of matching the version of an addon to the version of the operator that knows how to manage it well. Most addons have different versions and these versions might need to be managed differently. This feature checks the custom resource for the `addons.k8s.io/min-operator-version` annotation which states the minimum operator version that is needed to manage the version against the version of the operator. If the operator version is below the minimum version required, the operator pauses with an error telling the user that the version of the operator is too low. This helps to ensure that the correct operator is being used for the addon.
+Enabling version check for operators helped in making safer upgrades/downgrades to different versions of the addon, even though the operator had complex logic. It is a way of matching the version of an addon to the version of the operator that knows how to manage it well. Most addons have different versions and these versions might need to be managed differently. This feature checks the custom resource for the `addons.k8s.io/min-operator-version` annotation which states the minimum operator version that is needed to manage the version against the version of the operator. If the operator version is below the minimum version required, the operator pauses with an error telling the user that the version of the operator is too low. This helps to ensure that the correct operator is being used for the addon.
 
 **Related Pull Requests**
 
@@ -50,21 +50,21 @@ Enabling version check for operators helped in making safer upgrades/downgrades 
 
 
 ### Git Repository for storing the manifests
-Previously, there was support for only local file directories and https repositories for storing manifests. Giving creators of addon operators the ability to store manifest in GitHub repository enables faster development and version control.  When starting the controller, you can pass in a flag to specify the location of your channels directory (the channels directory contains manifest for different versions - the controller pulls the manifest from this directory and applies it to the cluster). During the internship period, I extended it to include git repositories.
+Previously, there was support for only local file directories and HTTPS repositories for storing manifests. Giving creators of addon operators the ability to store manifest in GitHub repository enables faster development and version control.  When starting the controller, you can pass in a flag to specify the location of your channels directory. The channels directory contains manifest for different versions, the controller pulls the manifest from this directory and applies it to the cluster. During the internship period, I extended it to include Git repositories.
 
 **Related Pull Requests**
 -  [kubernetes-sigs/kubebuilder-declarative-pattern#104](https://github.com/kubernetes-sigs/kubebuilder-declarative-pattern/pull/104) - Base git repository working
 - [kubernetes-sigs/kubebuilder-declarative-pattern#119](https://github.com/kubernetes-sigs/kubebuilder-declarative-pattern/pull/119) - Allows use of private repositories
 
 ### Annotations to temporarily disable reconciliation
-The reconciliation loop that ensures that the desired state matches the actual state prevents modification of objects in the cluster. This makes it hard to experiment or investigate what might be wrong in the cluster as any changes made are promptly reverted. I resolved this by allowing users to place `addons.k8s.io/ignore` annotation to the resource that they don’t want the controller to reconcile. The controller checks for this annotation and doesn’t reconcile that object. To resume reconciliation, simply remove the annotation from the resource.
+The reconciliation loop that ensures that the desired state matches the actual state prevents modification of objects in the cluster. This makes it hard to experiment or investigate what might be wrong in the cluster as any changes made are promptly reverted. I resolved this by allowing users to place `addons.k8s.io/ignore` annotation on the resource that they don’t want the controller to reconcile. The controller checks for this annotation and doesn’t reconcile that object. To resume reconciliation, the annotation can be removed from the resource.
 
 **Related Pull Requests**
 - [kubernetes-sigs/kubebuilder-declarative-pattern#111](https://github.com/kubernetes-sigs/kubebuilder-declarative-pattern/pull/111) - Checks for annotation for objects in-cluster
 - [kubernetes-sigs/kubebuilder-declarative-pattern#105](https://github.com/kubernetes-sigs/kubebuilder-declarative-pattern/pull/105) - Checks for ignore reconciliation annotation
 
 ### Unstructured support in kubebuilder-declarative-pattern
-One of the operators that I worked on is a generic controller that could manage more than one cluster addon that did not require extra configuration. To do this, the operator couldn’t use a particular type and needed the kubebuilder-declarative-repo to support using the unstructured.Unstructured type. There were various functions in the kubebuilder-declarative-pattern that couldn’t handle this type and return an error if the object passed in was not of type `addonsv1alpha1.CommonObject`. The functions were modified to handle both unstructured.Unstructured and addonsv1alpha.CommonObject.
+One of the operators that I worked on is a generic controller that could manage more than one cluster addon that did not require extra configuration. To do this, the operator couldn’t use a particular type and needed the kubebuilder-declarative-repo to support using the [unstructured.Unstructured](https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1/unstructured#Unstructured) type. There were various functions in the kubebuilder-declarative-pattern that couldn’t handle this type and returned an error if the object passed in was not of type `addonsv1alpha1.CommonObject`. The functions were modified to handle both `unstructured.Unstructured` and `addonsv1alpha.CommonObject`.
 
 **Related Pull Requests**
 [kubernetes-sigs/kubebuilder-declarative-pattern#112](https://github.com/kubernetes-sigs/kubebuilder-declarative-pattern/pull/112) - Unstructured support in different functions
@@ -107,18 +107,18 @@ Additionally, the tool enables you to split the RBAC by separating the cluster r
 - [kubernetes-sigs/cluster-addons#68](https://github.com/kubernetes-sigs/cluster-addons/pull/68) - Takes in manifest and generates role
 
 ### [Kubectl Ownerref](https://github.com/kubernetes-sigs/cluster-addons/tree/master/tools/kubectl-ownerref)
-It is hard to find out at a glance which objects were created by an addon custom resource, this kubectl plugin alleviates that pain by displaying all the objects in the cluster that a resource has ownerrefs on. You simply pass the kind and the name of the resource as arguments to the program and it checks the cluster for the objects and gives the kind, name, the namespace of such object. It could be useful to get a general overview of all the objects that the controller is reconciling by passing in the name and kind of custom resource.
+It is hard to find out at a glance which objects were created by an addon custom resource. This kubectl plugin alleviates that pain by displaying all the objects in the cluster that a resource has ownerrefs on. You simply pass the kind and the name of the resource as arguments to the program and it checks the cluster for the objects and gives the kind, name, the namespace of such an object. It could be useful to get a general overview of all the objects that the controller is reconciling by passing in the name and kind of custom resource.
 
 **Related Pull Requests**
 - [kubernetes-sigs/cluster-addons#73](https://github.com/kubernetes-sigs/cluster-addons/pull/73) - Kubectl plugin for resources that have a particular ownerref
 
 ## Addon Operators
-To fully understand addons operators and make changes to how they are being created, you have to try creating and using them. Part of the summer was spent building operators for some popular addons like the Kubernetes dashboard, flannel, NodeLocalDNS and so on. Please check the cluster addons for the different addon operators. In this section, I will just highlight just one that is a little different from others.
+To fully understand addons operators and make changes to how they are being created, you have to try creating and using them. Part of the summer was spent building operators for some popular addons like the Kubernetes dashboard, flannel, NodeLocalDNS and so on. Please check the cluster addons for the different addon operators. In this section, I will just highlight one that is a little different from the others.
 
 ### Generic Controller
-The generic controller is a general controller that can be shared between addons that don’t require much configuration. This minimizes resource consumption on the cluster as it reduces the number of controllers that need to be run. It alsoSo instead of building your own operator, you can just use the generic controller and whenever you feel that your needs have grown and you need a more complex operator, you can always scaffold the code with kubebuilder and continue from where the generic operator stopped. To use the generic controller, you can generate the CRD using this tool (generic-addon). You pass in the kind, group, and the location of your channels directory (it could be a git repository!). The tool generates the - CRD, RBAC manifest and two custom resources for you
+The generic controller can be shared between addons that don’t require much configuration. This minimizes resource consumption on the cluster as it reduces the number of controllers that need to be run. Also instead of building your own operator, you can just use the generic controller and whenever you feel that your needs have grown and you need a more complex operator, you can always scaffold the code with kubebuilder and continue from where the generic operator stopped. To use the generic controller, you can generate the CRD using this tool ([generic-addon](https://github.com/kubernetes-sigs/cluster-addons/blob/master/tools/generic-addon/README.md)). You pass in the kind, group, and the location of your channels directory (it could be a Git repository too!). The tool generates the - CRD, RBAC manifest and two custom resources for you.
 
-The process is as follows
+The process is as follows:
 - Create the Generic CRD
 - Generate all the manifest needed with the `generic-addon` tool found [here](https://github.com/kubernetes-sigs/cluster-addons/blob/master/tools/generic-addon/README.md).
 
@@ -144,8 +144,8 @@ spec:
 channel: "../nodelocaldns/channels"
 ```
 
-Apply these manifests (Ensure to apply the CRD before the CR)
-Run the Generic controller, either on your machine or in-cluster
+Apply these manifests but ensure to apply the CRD before the CR.
+Then, run the Generic controller, either on your machine or in-cluster.
 
 **Related Pull Requests**
 - [kubernetes-sigs/cluster-addons#75](https://github.com/kubernetes-sigs/cluster-addons/pull/75) - Generic controller
@@ -183,7 +183,7 @@ To crown a very fulfilling summer spent working on cluster-addons, I worked on c
 
 
 ## Further Work
-A lot of work was definitely done on the cluster add-ons during the GSoC period. But we need more people building operators and using them in the cluster. We need wider adoption in the community. Build operators for your favourite addons and tell us how it went or if you had any issues. If you are interested in building an operator, Please check out this [README.md](https://github.com/kubernetes-sigs/cluster-addons/blob/master/dashboard/README.md).
+A lot of work was definitely done on the cluster addons during the GSoC period. But we need more people building operators and using them in the cluster. We need wider adoption in the community. Build operators for your favourite addons and tell us how it went and if you had any issues. If you are interested in building an operator, Please check out this [README.md](https://github.com/kubernetes-sigs/cluster-addons/blob/master/dashboard/README.md).
 
 ## Pull Requests and Issues
 
