@@ -50,7 +50,7 @@ Enabling version check for operators helped in making safer upgrades/downgrades 
 
 
 ### Git Repository for storing the manifests
-Previously, there was support for only local file directories and https repositories for storing manifests. Giving creators of addon operators the ability to store manifest in GitHub repository enables faster development and version control.  When starting the controller, you can pass in a flag to specify the location of your channels directory(the channels directory contains manifest for different versions - the controller pulls the manifest from this directory and applies it to the cluster). During the internship period, I extended it to include git repositories.
+Previously, there was support for only local file directories and https repositories for storing manifests. Giving creators of addon operators the ability to store manifest in GitHub repository enables faster development and version control.  When starting the controller, you can pass in a flag to specify the location of your channels directory (the channels directory contains manifest for different versions - the controller pulls the manifest from this directory and applies it to the cluster). During the internship period, I extended it to include git repositories.
 
 **Related Pull Requests**
 -  [kubernetes-sigs/kubebuilder-declarative-pattern#104](https://github.com/kubernetes-sigs/kubebuilder-declarative-pattern/pull/104) - Base git repository working
@@ -99,14 +99,14 @@ I was also involved in several refactoring around the two codebases, small chang
 ## Tools and CLI programs
 There were also some command-line programs I wrote that could be used to make working with addon operators easier. Most of them have uses outside the addon operators as they try to solve a specific problem that could surface anywhere while working with Kubernetes. I encourage you to check them out when you have the chance!
 
-###  RBAC generator
+###  [RBAC generator](https://github.com/kubernetes-sigs/cluster-addons/tree/master/tools/rbac-gen)
 One of the biggest concerns with the operator was RBAC. You had to manually look through the manifest and add the RBAC rule for each resource as it needs to have RBAC permissions to create, get, update and delete the resources in the manifest when running in-cluster. Building the RBAC generator automated the process of writing the RBAC roles and role bindings. The function of the RBAC generator is simple. It accepts the file name of the manifest as a flag. Then, it parses the manifest and gets the API group and resource name of the resources and adds it to a role. It outputs the role and role binding to stdout or a file if the `--out` flag is parsed.
 Additionally, the tool enables you to split the RBAC by separating the cluster roles in the manifest. This lessened the security concern of an operator being over-privileged as it needed to have all the permissions that the clusterrole has. If you want to apply the clusterrole yourself and not give the operator these permissions, you can pass in a `--supervisory` boolean flag so that the generator does not add these permissions to the role. The CLI program resides here.
 
 **Related Pull Requests**
 - [kubernetes-sigs/cluster-addons#68](https://github.com/kubernetes-sigs/cluster-addons/pull/68) - Takes in manifest and generates role
 
-### Kubectl Ownerref
+### [Kubectl Ownerref](https://github.com/kubernetes-sigs/cluster-addons/tree/master/tools/kubectl-ownerref)
 It is hard to find out at a glance which objects were created by an addon custom resource, this kubectl plugin alleviates that pain by displaying all the objects in the cluster that a resource has ownerrefs on. You simply pass the kind and the name of the resource as arguments to the program and it checks the cluster for the objects and gives the kind, name, the namespace of such object. It could be useful to get a general overview of all the objects that the controller is reconciling by passing in the name and kind of custom resource.
 
 **Related Pull Requests**
@@ -116,11 +116,11 @@ It is hard to find out at a glance which objects were created by an addon custom
 To fully understand addons operators and make changes to how they are being created, you have to try creating and using them. Part of the summer was spent building operators for some popular addons like the Kubernetes dashboard, flannel, NodeLocalDNS and so on. Please check the cluster addons for the different addon operators. In this section, I will just highlight just one that is a little different from others.
 
 ### Generic Controller
-The generic controller is a general controller that can be shared between addons that don’t require much configuration. This minimizes resource consumption on the cluster as it reduces the number of controllers that need to be run. It alsoSo instead of building your own operator, you can just use the generic controller and whenever you feel that your needs have grown and you need a more complex operator, you can always scaffold the code with kubebuilder and continue from where the generic operator stopped. To use the generic controller, you can generate the CRD using this tool(generic-addon). You pass in the kind, group, and the location of your channels directory(it could be a git repository!). The tool generates the - CRD, RBAC manifest and two custom resources for you
+The generic controller is a general controller that can be shared between addons that don’t require much configuration. This minimizes resource consumption on the cluster as it reduces the number of controllers that need to be run. It alsoSo instead of building your own operator, you can just use the generic controller and whenever you feel that your needs have grown and you need a more complex operator, you can always scaffold the code with kubebuilder and continue from where the generic operator stopped. To use the generic controller, you can generate the CRD using this tool (generic-addon). You pass in the kind, group, and the location of your channels directory (it could be a git repository!). The tool generates the - CRD, RBAC manifest and two custom resources for you
 
 The process is as follows
 - Create the Generic CRD
-- Generate all the manifest needed with the `generic-addon` tool found here (here)[https://github.com/kubernetes-sigs/cluster-addons/blob/master/tools/generic-addon/README.md].
+- Generate all the manifest needed with the `generic-addon` tool found [here](https://github.com/kubernetes-sigs/cluster-addons/blob/master/tools/generic-addon/README.md).
 
 This tool creates
 1. The CRD for your addon
@@ -144,7 +144,7 @@ spec:
 channel: "../nodelocaldns/channels"
 ```
 
-Apply these manifests(Ensure to apply the CRD before the CR)
+Apply these manifests (Ensure to apply the CRD before the CR)
 Run the Generic controller, either on your machine or in-cluster
 
 **Related Pull Requests**
