@@ -19,7 +19,7 @@ To easier track the progress, I've created a [public trello board](https://trell
 * Github: [SomtochiAma](https://github.com/SomtochiAma)
 * Email: somtochionyekwere@gmail.com
 * Slack nick: SomtochiAma
-* Twitter: [@AmaOnyekwere](https://twitter.com/AmaOnyekwere)
+* Twitter: [@SomtochiAma](https://twitter.com/SomtochiAma)
 * Mentors: [Justin Santa Barbara](https://github.com/justinsb), [Leigh Capili](https://github.com/stealthybox)
 
 # Links
@@ -32,7 +32,7 @@ To easier track the progress, I've created a [public trello board](https://trell
 * [Progress Tracker (Trello Board)](https://trello.com/b/6kuguhLw/gsoc-2020-tracker-cluster-addons)
 * [All commits to kubernetes-sigs/cluster-addons](https://github.com/kubernetes-sigs/cluster-addons/commits?author=SomtochiAma)
 * [All commits to kubernetes-sigs/kubebuidler-declarative-pattern](https://github.com/kubernetes-sigs/kubebuilder-declarative-pattern/commits?author=SomtochiAma)
-* [Link to pull requests for blog post](https://github.com/kubernetes/website/pull/23432)
+* [Link to pull request for blog post on Kubernetes website](https://github.com/kubernetes/website/pull/23432)
 
 
 # Work done
